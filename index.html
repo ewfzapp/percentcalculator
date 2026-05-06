@@ -1,63 +1,278 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur de Pourcentage - Service Express</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1805732481707409" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { margin:0; font-family:'Inter', sans-serif; background: radial-gradient(circle at top, #0f172a, #020617); color:white; display:flex; flex-direction: column; align-items:center; min-height:100vh; padding: 20px; }
-        .container { width:100%; max-width:420px; padding:30px; border-radius:24px; background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); box-shadow: 0 0 50px rgba(99,102,241,0.25); text-align:center; margin-bottom: 30px; }
-        h1 { margin-bottom:10px; font-size: 1.8rem; }
-        .subtitle { color:#94a3b8; font-size:14px; margin-bottom:20px; }
-        label { display:block; margin-top:20px; font-size:14px; color:#cbd5e1; text-align:left; }
-        input { width:100%; padding:14px; margin-top:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:#0f172a; color:white; box-sizing: border-box; }
-        button { width:100%; padding:14px; margin-top:20px; border-radius:12px; border:none; background: linear-gradient(90deg,#6366f1,#8b5cf6); color:white; font-weight:600; cursor:pointer; transition:0.2s; }
-        button:hover { transform: scale(1.02); }
-        .result { margin-top:25px; padding: 15px; border-radius: 12px; background: rgba(99,102,241,0.1); font-size: 22px; font-weight: 700; color: #a78bfa; display: none; }
-        .seo-content { text-align: left; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-        .seo-content h2 { font-size: 1.1rem; color: #a78bfa; margin-top: 20px; }
-        .seo-content p { font-size: 0.9rem; color: #94a3b8; line-height: 1.5; }
-        footer { margin-top: auto; padding: 20px; font-size: 0.8rem; text-align: center; color: #64748b; }
-        footer a { color:#94a3b8; text-decoration: none; margin: 0 10px; }
-        .ad-slot { margin: 20px 0; min-height: 100px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de Pourcentage Gratuit – Remises, TVA, Variations | Service Express</title>
+  <meta name="description" content="Calculez instantanément des pourcentages, remises, augmentations et TVA. 4 modes de calcul, résultats détaillés. Outil gratuit sans inscription.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://percent.service-express.org/">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1805732481707409" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#04050f;--surface:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.09);--purple:#a78bfa;--purple-dim:#818cf8;--accent:#7c3aed;--text:#e8eaf6;--muted:#7c85a8;--green:#34d399;--amber:#fbbf24;--red:#f87171;--orange:#fb923c;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 16px 60px;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 50% 50% at 80% 20%,rgba(251,146,60,.10) 0%,transparent 70%),radial-gradient(ellipse 55% 45% at 15% 75%,rgba(99,60,180,.14) 0%,transparent 70%);pointer-events:none;}
+    .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+
+    nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 24px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+    .nav-brand{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--purple);text-decoration:none;}
+    .nav-back{font-size:13px;color:var(--muted);text-decoration:none;}
+    .nav-back:hover{color:var(--purple);}
+
+    .hero{text-align:center;margin-bottom:32px;}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:800;margin-bottom:8px;}
+    .hero h1 span{color:var(--purple);}
+    .hero p{font-size:15px;color:var(--muted);}
+
+    /* MODE SELECTOR */
+    .mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px;}
+    @media(max-width:440px){.mode-grid{grid-template-columns:1fr;}}
+    .mode-btn{padding:13px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;text-align:left;line-height:1.3;}
+    .mode-btn .mode-icon{font-size:18px;display:block;margin-bottom:4px;}
+    .mode-btn.active{border-color:rgba(167,139,250,.5);background:rgba(167,139,250,.1);color:var(--purple);}
+    .mode-btn:hover:not(.active){border-color:rgba(255,255,255,.2);color:var(--text);}
+
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+    @media(max-width:420px){.fields{grid-template-columns:1fr;}}
+    .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:500;}
+    .field input{width:100%;padding:13px 16px;font-size:18px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:none;transition:border-color .2s;-webkit-appearance:none;}
+    .field input:focus{border-color:var(--purple);}
+
+    .btn-calc{width:100%;padding:15px;font-size:16px;font-weight:700;background:linear-gradient(135deg,var(--accent),#6d28d9);color:#fff;border:none;border-radius:14px;cursor:pointer;transition:opacity .2s,transform .15s;}
+    .btn-calc:hover{opacity:.88;transform:translateY(-1px);}
+
+    /* RÉSULTAT */
+    #result{display:none;}
+    .result-hero{text-align:center;padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;margin-bottom:20px;}
+    .result-main{font-family:'Syne',sans-serif;font-size:clamp(42px,10vw,64px);font-weight:800;line-height:1;color:var(--green);}
+    .result-label{font-size:14px;color:var(--muted);margin-top:8px;}
+    .result-details{margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .detail-pill{padding:8px 16px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;font-size:13px;color:var(--muted);}
+    .detail-pill strong{color:var(--purple-dim);}
+
+    /* PRESETS TVA */
+    .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+    .preset-chip{padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;background:rgba(167,139,250,.10);border:1px solid rgba(167,139,250,.25);color:var(--purple);transition:all .15s;}
+    .preset-chip:hover{background:rgba(167,139,250,.22);}
+
+    /* SEO */
+    .seo{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-top:8px;}
+    .seo h2{font-family:'Syne',sans-serif;font-size:18px;color:var(--purple);margin-bottom:12px;}
+    .seo h3{font-size:15px;color:var(--text);margin:20px 0 8px;}
+    .seo p{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:10px;}
+    .seo ul{padding-left:18px;color:var(--muted);font-size:14px;line-height:2.1;}
+    .seo table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px;}
+    .seo table th{text-align:left;color:var(--purple);padding:8px 6px;border-bottom:1px solid var(--border);}
+    .seo table td{padding:8px 6px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.04);}
+
+    footer{text-align:center;margin-top:48px;font-size:12px;color:var(--muted);}
+    footer a{color:var(--purple-dim);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>📊 Pourcentage</h1>
-    <p class="subtitle">Calculez rapidement une valeur ou une remise</p>
-    <div class="ad-slot">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1805732481707409" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="wrap">
+  <nav>
+    <a class="nav-brand" href="https://service-express.org">⚡ Service Express</a>
+    <a class="nav-back" href="https://service-express.org">← Retour au portail</a>
+  </nav>
+
+  <div class="hero">
+    <h1>📊 Calculateur de <span>Pourcentage</span></h1>
+    <p>Remises, TVA, augmentations et variations — résultats instantanés</p>
+  </div>
+
+  <!-- MODE -->
+  <div class="mode-grid">
+    <button class="mode-btn active" id="m-pct" onclick="setMode('pct')"><span class="mode-icon">🔢</span>X% de Y = ?</button>
+    <button class="mode-btn" id="m-remise" onclick="setMode('remise')"><span class="mode-icon">🏷️</span>Prix après remise</button>
+    <button class="mode-btn" id="m-variation" onclick="setMode('variation')"><span class="mode-icon">📈</span>Variation entre 2 valeurs</button>
+    <button class="mode-btn" id="m-tva" onclick="setMode('tva')"><span class="mode-icon">🧾</span>Calcul TVA</button>
+  </div>
+
+  <div class="card" id="form-card">
+    <!-- Champs dynamiques -->
+    <div class="fields" id="fields-wrap"></div>
+    <div id="presets-wrap"></div>
+    <button class="btn-calc" onclick="calculer()">Calculer →</button>
+  </div>
+
+  <div id="result">
+    <div class="result-hero">
+      <div class="result-main" id="r-main">–</div>
+      <div class="result-label" id="r-label">–</div>
+      <div class="result-details" id="r-details"></div>
     </div>
-    <label>Valeur totale</label>
-    <input type="number" id="total" placeholder="Ex: 200">
-    <label>Pourcentage (%)</label>
-    <input type="number" id="percentage" placeholder="Ex: 20">
-    <button onclick="calc()">Calculer</button>
-    <div class="result" id="result"></div>
-    <div class="seo-content">
-        <h2>Comment calculer un pourcentage ?</h2>
-        <p>Multiplier la valeur par le taux, puis diviser par 100. Cet outil le fait instantanément pour vous.</p>
-    </div>
+  </div>
+
+  <div class="seo">
+    <h2>Comment calculer un pourcentage ?</h2>
+    <p>Un pourcentage exprime une fraction d'une quantité sur 100. La formule de base est : <strong>résultat = (valeur × pourcentage) ÷ 100</strong>. Notre calculateur gère quatre types de calculs courants.</p>
+
+    <h3>Les 4 types de calcul de pourcentage</h3>
+    <ul>
+      <li><strong>X% de Y :</strong> trouver la valeur d'un pourcentage (ex. 20% de 150 = 30)</li>
+      <li><strong>Prix après remise :</strong> prix initial − (prix × taux de remise / 100)</li>
+      <li><strong>Variation entre deux valeurs :</strong> ((V2 − V1) / V1) × 100</li>
+      <li><strong>Calcul TVA :</strong> HT × (1 + taux) = TTC, ou TTC / (1 + taux) = HT</li>
+    </ul>
+
+    <h3>Taux de TVA en France (2026)</h3>
+    <table>
+      <tr><th>Taux</th><th>Catégorie</th><th>Exemples</th></tr>
+      <tr><td>20%</td><td>Taux normal</td><td>Électronique, vêtements, services</td></tr>
+      <tr><td>10%</td><td>Taux intermédiaire</td><td>Restauration, travaux, transport</td></tr>
+      <tr><td>5,5%</td><td>Taux réduit</td><td>Alimentation, livres, abonnements gaz/élec.</td></tr>
+      <tr><td>2,1%</td><td>Taux super réduit</td><td>Médicaments remboursables, presse</td></tr>
+    </table>
+
+    <h3>Exemples de calculs courants</h3>
+    <ul>
+      <li>Soldes -30% sur un article à 89 € → 89 − (89 × 0,30) = 62,30 €</li>
+      <li>Augmentation de salaire de 3,5% sur 2 000 € → 2 000 × 1,035 = 2 070 €</li>
+      <li>TVA 20% sur un prix HT de 500 € → TVA = 100 €, TTC = 600 €</li>
+      <li>Trouver le HT depuis un TTC de 240 € à 20% → 240 / 1,20 = 200 €</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>© 2026 Service Express &nbsp;·&nbsp; <a href="https://percent.service-express.org/privacy.html">Confidentialité</a></p>
+  </footer>
 </div>
 <script>
-    function calc() {
-        const t = document.getElementById('total').value;
-        const p = document.getElementById('percentage').value;
-        const res = document.getElementById('result');
-        if(t && p) {
-            const val = (t * p) / 100;
-            res.style.display = "block";
-            res.innerText = "Résultat : " + val;
-        }
-    }
+let mode = 'pct';
+
+const MODES = {
+  pct: {
+    fields:[
+      {id:'f1',label:'Pourcentage (%)',placeholder:'ex : 20'},
+      {id:'f2',label:'Valeur de base',placeholder:'ex : 150'},
+    ],
+    presets:null,
+  },
+  remise: {
+    fields:[
+      {id:'f1',label:'Prix initial (€)',placeholder:'ex : 89'},
+      {id:'f2',label:'Remise (%)',placeholder:'ex : 30'},
+    ],
+    presets:['5%','10%','15%','20%','25%','30%','40%','50%','70%'],
+  },
+  variation: {
+    fields:[
+      {id:'f1',label:'Valeur initiale',placeholder:'ex : 1000'},
+      {id:'f2',label:'Valeur finale',placeholder:'ex : 1200'},
+    ],
+    presets:null,
+  },
+  tva: {
+    fields:[
+      {id:'f1',label:'Montant (HT ou TTC)',placeholder:'ex : 500'},
+      {id:'f2',label:'Taux de TVA (%)',placeholder:'ex : 20'},
+    ],
+    presets:['2,1%','5,5%','10%','20%'],
+  },
+};
+
+function setMode(m) {
+  mode=m;
+  ['pct','remise','variation','tva'].forEach(k=>{
+    document.getElementById('m-'+k).classList.toggle('active',k===m);
+  });
+  renderForm();
+  document.getElementById('result').style.display='none';
+}
+
+function renderForm() {
+  const cfg = MODES[mode];
+  document.getElementById('fields-wrap').innerHTML = cfg.fields.map(f=>`
+    <div class="field">
+      <label>${f.label}</label>
+      <input type="number" id="${f.id}" placeholder="${f.placeholder}" step="any">
+    </div>
+  `).join('');
+
+  const pw = document.getElementById('presets-wrap');
+  if(cfg.presets) {
+    pw.innerHTML = `<div class="presets">${cfg.presets.map(p=>`<div class="preset-chip" onclick="fillPreset('${p}')">${p}</div>`).join('')}</div>`;
+  } else {
+    pw.innerHTML='';
+  }
+}
+
+function fillPreset(pStr) {
+  const v = parseFloat(pStr.replace(',','.').replace('%',''));
+  document.getElementById('f2').value = v;
+}
+
+function fmt(n) {
+  return new Intl.NumberFormat('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+}
+
+function calculer() {
+  const v1 = parseFloat(document.getElementById('f1').value);
+  const v2 = parseFloat(document.getElementById('f2').value);
+  if(isNaN(v1)||isNaN(v2)){alert('Veuillez remplir les deux champs.');return;}
+
+  let main='', label='', details=[];
+
+  if(mode==='pct') {
+    const r = v1/100*v2;
+    main = fmt(r);
+    label = `${v1}% de ${fmt(v2)}`;
+    details=[
+      {t:'Résultat',v:fmt(r)},
+      {t:'Valeur restante',v:fmt(v2-r)},
+      {t:'Ratio',v:v1+'%'},
+    ];
+  } else if(mode==='remise') {
+    const remise = v1*v2/100;
+    const final  = v1-remise;
+    main = fmt(final);
+    label = `Prix après remise de ${v2}%`;
+    details=[
+      {t:'Prix initial',v:fmt(v1)+' €'},
+      {t:'Remise',v:'−'+fmt(remise)+' €'},
+      {t:'Prix final',v:fmt(final)+' €'},
+    ];
+  } else if(mode==='variation') {
+    const diff = v2-v1;
+    const pct  = ((v2-v1)/v1)*100;
+    const isPos = pct>=0;
+    main = (isPos?'+':'')+pct.toFixed(2).replace('.',',')+' %';
+    label = `Variation de ${fmt(v1)} à ${fmt(v2)}`;
+    document.getElementById('r-main').style.color = isPos?'var(--green)':'var(--red)';
+    details=[
+      {t:'Différence absolue',v:(isPos?'+':'')+fmt(diff)},
+      {t:'Variation relative',v:(isPos?'+':'')+pct.toFixed(2).replace('.',',')+' %'},
+    ];
+  } else if(mode==='tva') {
+    const taux = v2/100;
+    const ht   = v1/(1+taux);
+    const tva  = v1-ht;
+    const ttc  = v1*(1+taux);
+    main = fmt(tva)+' €';
+    label = `TVA à ${v2}% sur ${fmt(v1)} €`;
+    details=[
+      {t:'Montant HT',v:fmt(ht)+' €'},
+      {t:'TVA ('+v2+'%)',v:fmt(tva)+' €'},
+      {t:'Montant TTC',v:fmt(ttc)+' €'},
+    ];
+  }
+
+  if(mode!=='variation') document.getElementById('r-main').style.color='var(--green)';
+  document.getElementById('r-main').textContent = main;
+  document.getElementById('r-label').textContent = label;
+  document.getElementById('r-details').innerHTML = details.map(d=>`<div class="detail-pill"><strong>${d.t} :</strong> ${d.v}</div>`).join('');
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+renderForm();
 </script>
-<footer>
-    <p><a href="about.html">À propos</a> | <a href="privacy.html">Confidentialité</a></p>
-    <p>&copy; 2026 Service Express</p>
-</footer>
 </body>
 </html>
